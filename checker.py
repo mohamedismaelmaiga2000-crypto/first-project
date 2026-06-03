@@ -1,5 +1,6 @@
-# Password Strength Checker - v3
+# Password Strength Checker - v4
 
+special_chars = "!@#$%^&*"
 password = input("Enter a password: ")
 
 errors = []
@@ -12,6 +13,9 @@ if not any(char.isupper() for char in password):
 
 if not any(char.isdigit() for char in password):
     errors.append("Add at least one number")
+
+if not any(char in special_chars for char in password):
+    errors.append("Add at least one special character (!@#$%^&*)")
 
 if errors:
     print("Weak password:")
