@@ -1,8 +1,18 @@
-# Password Strength Checker - v1
+# Password Strength Checker - v2
 
-password = input("Entrez un mot de passe : ")
+password = input("Enter a password: ")
+
+errors = []
 
 if len(password) < 8:
-    print(" Mot de passe trop court")
+    errors.append("Password too short (minimum 8 characters)")
+
+if not any(char.isupper() for char in password):
+    errors.append("Add at least one uppercase letter")
+
+if errors:
+    print("Weak password:")
+    for error in errors:
+        print("-", error)
 else:
-    print(" Longueur correcte")
+    print("Password looks good")
