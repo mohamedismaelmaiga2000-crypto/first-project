@@ -1,4 +1,7 @@
-# Password Strength Checker - v5
+# Password Strength Checker - v6
+# Adds password hashing (SHA-256)
+
+import hashlib
 
 special_chars = "!@#$%^&*"
 password = input("Enter a password: ")
@@ -6,6 +9,7 @@ password = input("Enter a password: ")
 score = 0
 feedback = []
 
+# Strength checks
 if len(password) >= 8:
     score += 1
 else:
@@ -26,11 +30,17 @@ if any(char in special_chars for char in password):
 else:
     feedback.append("Add a special character")
 
+# Hashing the password
+hashed_password = hashlib.sha256(password.encode()).hexdigest()
+
 print(f"\nPassword strength score: {score}/4")
 
 if score == 4:
-    print("Very strong password")
+    print("Strong password")
 else:
     print("Improvements needed:")
     for tip in feedback:
         print("-", tip)
+
+print("\nHashed password (SHA-256):")
+print(hashed_password)
