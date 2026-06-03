@@ -1,25 +1,36 @@
-# Password Strength Checker - v4
+# Password Strength Checker - v5
 
 special_chars = "!@#$%^&*"
 password = input("Enter a password: ")
 
-errors = []
+score = 0
+feedback = []
 
-if len(password) < 8:
-    errors.append("Password too short (minimum 8 characters)")
-
-if not any(char.isupper() for char in password):
-    errors.append("Add at least one uppercase letter")
-
-if not any(char.isdigit() for char in password):
-    errors.append("Add at least one number")
-
-if not any(char in special_chars for char in password):
-    errors.append("Add at least one special character (!@#$%^&*)")
-
-if errors:
-    print("Weak password:")
-    for error in errors:
-        print("-", error)
+if len(password) >= 8:
+    score += 1
 else:
-    print("Strong password")
+    feedback.append("Minimum 8 characters")
+
+if any(char.isupper() for char in password):
+    score += 1
+else:
+    feedback.append("Add an uppercase letter")
+
+if any(char.isdigit() for char in password):
+    score += 1
+else:
+    feedback.append("Add a number")
+
+if any(char in special_chars for char in password):
+    score += 1
+else:
+    feedback.append("Add a special character")
+
+print(f"\nPassword strength score: {score}/4")
+
+if score == 4:
+    print("Very strong password")
+else:
+    print("Improvements needed:")
+    for tip in feedback:
+        print("-", tip)
